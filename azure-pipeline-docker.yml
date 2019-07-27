@@ -1,6 +1,7 @@
 ﻿trigger:
   - master
 
+
 pool:
   vmImage: "Ubuntu 16.04"
 
@@ -8,15 +9,37 @@ variables:
   buildConfiguration: "Release"
 
 steps:
-  - task: Docker@2
-    displayName: "Login to Docker Hub"
-    inputs:
-      command: login
-      containerRegistry: dockerHubConnection-ronak
 
-  - task: Docker@2
-    displayName: "Build and Push an image for Azure-Storage-MSI-ListContainers"
+  - task: Docker@1
+    displayName: "Build an image for SampleApp.CustomersAPI"
     inputs:
-      command: buildAndPush
-      Dockerfile: Azure-Storage-MSI-ListContainers/Dockerfile
-      repository: ronakthakkar/azure-storage-msi-listcontainers
+      command: build
+      azureSubscriptionEndpoint: "TPC Azure Energy SaaS DEV (b5d67b00-da19-4253-9d10-66a7e63ce83d)"
+      azureContainerRegistry: tsuapimanagementdev.azurecr.io
+      dockerFile: SampleApp.CustomersAPI/dockerfile
+      imageName: SampleApp.CustomersAPI:$(Build.BuildId)
+
+  - task: Docker@1
+    displayName: "Push an image for SampleApp.CustomersAPI"
+    inputs:
+      command: push
+      azureSubscriptionEndpoint: "TPC Azure Energy SaaS DEV (b5d67b00-da19-4253-9d10-66a7e63ce83d)"
+      azureContainerRegistry: tsuapimanagementdev.azurecr.io
+      imageName: SampleApp.CustomersAPI:$(Build.BuildId)
+
+  - task: Docker@1
+    displayName: "Build an image for SampleApp.ProductsAPI"
+    inputs:
+      command: build
+      azureSubscriptionEndpoint: "TPC Azure Energy SaaS DEV (b5d67b00-da19-4253-9d10-66a7e63ce83d)"
+      azureContainerRegistry: tsuapimanagementdev.azurecr.io
+      dockerFile: SampleApp.ProductsAPI/dockerfile
+      imageName: SampleApp.ProductsAPI:$(Build.BuildId)
+
+  - task: Docker@1
+    displayName: "Push an image for SampleApp.ProductsAPI"
+    inputs:
+      command: push
+      azureSubscriptionEndpoint: "TPC Azure Energy SaaS DEV (b5d67b00-da19-4253-9d10-66a7e63ce83d)"
+      azureContainerRegistry: tsuapimanagementdev.azurecr.io
+      imageName: SampleApp.ProductsAPI:$(Build.BuildId)
