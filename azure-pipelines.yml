@@ -20,3 +20,6 @@ steps:
       command: buildAndPush
       Dockerfile: Azure-Storage-MSI-ListContainers/dockerfile
       repository: ronakthakkar/azure-storage-msi-listcontainers
+      tags:
+        $(Build.BuildId)
+        latest
