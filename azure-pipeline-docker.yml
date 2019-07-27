@@ -18,5 +18,5 @@ steps:
     displayName: "Build and Push an image for Azure-Storage-MSI-ListContainers"
     inputs:
       command: buildAndPush
-      Dockerfile: Azure-Storage-MSI-ListContainers/Dockerfile
+      Dockerfile: Azure-Storage-MSI-ListContainers/dockerfile
       repository: ronakthakkar/azure-storage-msi-listcontainers
