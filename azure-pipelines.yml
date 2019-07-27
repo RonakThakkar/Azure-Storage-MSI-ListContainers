@@ -22,4 +22,3 @@ steps:
       repository: ronakthakkar/azure-storage-msi-listcontainers
       tags:
         $(Build.BuildId)
-        latest
